@@ -35,3 +35,20 @@ def test_ci95():
     # then
     assert expected_ci_min == actual_ci_min
     assert expected_ci_max == actual_ci_max
+    
+def test_ci99():
+    # given (preparing)
+    samples = [1, 2, 3, 4, 5]
+    mean = 3
+    std = 2 ** 0.5
+    n = len(samples)
+    
+    expected_ci_min = mean - (2.57 * (std / (n ** 0.5)))
+    expected_ci_max = mean + (2.57 * (std / (n ** 0.5)))
+    
+    # when
+    actual_ci_min, actual_ci_max = ci.ci99(samples)
+    
+    # then
+    assert expected_ci_min == actual_ci_min
+    assert expected_ci_max == actual_ci_max

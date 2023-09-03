@@ -36,6 +36,10 @@ def ci95(samples: List[int]):
             
     return ci_min(avg, 1.96, root_var, n), ci_max(avg, 1.96, root_var, n)
 
+def ci95_round(samples: List[int], roundNum: int):
+    ci_min, ci_max = ci95(samples)
+    return round(ci_min, roundNum), round(ci_max, roundNum)
+
 def ci99(samples: List[int]):
     n = len(samples)
     

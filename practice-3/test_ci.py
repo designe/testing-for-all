@@ -1,3 +1,4 @@
+import pytest
 import ci
 
 """_summary_
@@ -35,6 +36,26 @@ def test_ci95():
     # then
     assert expected_ci_min == actual_ci_min
     assert expected_ci_max == actual_ci_max
+
+"""_summary_
+1, 2, 3, 4, 5 1.76, 4.24
+6, 7, 8, 9, 10, 6.761, 9.24
+11, 12, 13, 14, 15, 11.761, 14.24
+1, 3, 5, 7, 9, 11, 13, 4.037, 9.964
+"""
+@pytest.mark.parametrize("samples, expected_min, expected_max", [
+    ([1,2,3,4,5], 1.76, 4.24),
+    ([6,7,8,9,10], 6.76, 9.24),
+    ([11, 12, 13, 14, 15], 11.76, 14.24),
+    ([1, 3, 5, 7, 9, 11, 13], 4.037, 9.963)
+])
+def test_ci95_round(samples, expected_min, expected_max):
+    # given parameterized
+    # when
+    actual_min, actual_max = ci.ci95_round(samples, 3)
+    # then
+    assert expected_min == actual_min
+    assert expected_max == actual_max
     
 def test_ci99():
     # given (preparing)
